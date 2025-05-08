@@ -10,7 +10,7 @@ RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY")
 WP_URL = os.getenv("WP_API_URL")
 WP_USER = os.getenv("WP_USER")
 WP_APP_PASSWORD = os.getenv("WP_APP_PASS")
-CATEGORY_ID = 1401
+CATEGORY_ID = 1433
 RESULTS_FILE = "results.json"
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
