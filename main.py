@@ -151,7 +151,7 @@ Twitter:
 null
 
 ✅ If the structure is valid:
-1. Keep the structure, punctuation, indentation, and English words (except the description) EXACTLY as they are.
+1. Keep the structure, punctuation, indentation, as they are.
 2. Only translate the **description** (the full paragraph under "Description:") into Bahasa Melayu — use friendly, chill, easy-to-understand tone.
 3. Translate **"Stage"** to **"fasa"**, but keep the stage name like "Series A" in double quotes.
 4. Translate **"Has token: No"** into **Has token: (belum)**, and  **"Has token: Yes"** into **Has token: (ada)**.
