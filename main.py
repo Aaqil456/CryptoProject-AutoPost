@@ -147,7 +147,7 @@ Description: [One paragraph in English]
 Twitter:
 @[TwitterHandle]
 
-✅ If the text DOES NOT follow this format exactly — including line breaks, spacing, and punctuation — respond only with:
+✅ If the text DOES NOT follow this format (no need to be exactly as long the sructure is similar) — respond only with:
 null
 
 ✅ If the structure is valid:
