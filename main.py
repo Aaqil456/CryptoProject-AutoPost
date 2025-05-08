@@ -153,7 +153,7 @@ null
 ✅ If the structure is valid, proceed with the following instructions:
 
 1. Keep the structure, punctuation, indentation, and line breaks exactly the same.  
-2. Only translate the **Description** (the paragraph under "Description:") into **Bahasa Melayu** using a **friendly, chill, easy-to-understand tone**.  
+2. Only translate the **Description** (the paragraph under "Description:") into **Bahasa Melayu**.  
 3. Change **"Stage"** to **"Fasa"**, but keep the value in double quotes (e.g. "Series A").  
 4. Change **"Has token: No"** to **Ada token: (belum)**, and **"Has token: Yes"** to **Ada token: (ada)**.  
 5. Change the label **"Twitter:"** to **"Twitter (akaun rasmi):"** but keep the handle untouched.  
@@ -163,7 +163,7 @@ null
 
 Nama: OrbitGrift  
 Dana: [Amount in malay] | Fasa: "[Stage Name]" | Ada token: [Ada, Tiada]  
-Pelabur: [Investor list in malay or "Tidak Dideahkan"]  
+Pelabur: [Investor list in malay(the word *and* become *dan*, *other* or *others* become *lain-lain*) or "Tidak Dideahkan"]  
 Deskripsi:[One paragraph description in Malay]  
 Twitter (akaun rasmi):  
 @[TwitterHandle]   
