@@ -137,29 +137,34 @@ def translate_with_gemini(text):
     headers = {
         "Content-Type": "application/json"
     }
-    payload = {
-        "contents": [{
-            "parts": [{
-                "text": f"""First, check if the following content follows this exact template structure:
+    prompt = f"""
+You are a translation assistant. Given a block of text, your job is to check if it follows *exactly* this structure:
+
 name: [Project Name]
 Raised: $[Amount] | Stage: [Stage Name] | Has token: [Yes/No]
 Investors: [Investor list or "Not disclosed"]
-Description: [Description in one paragraph]
+Description: [One paragraph in English]
 Twitter:
 @[TwitterHandle]
-If the structure does not match exactly — including the spacing and hyphens — return:
+
+✅ If the text DOES NOT follow this format exactly — including line breaks, spacing, and punctuation — respond only with:
 null
-If the structure is valid, translate the content into Malay as follows:
-Keep the format and spacing exactly the same.
-Translate "Stage" to "fasa" but keep the phase (e.g. "Undisclosed", "Series A") in double quotes.
-Translate "Has token: No" to Has token: (belum).
-Translate the description to casual Malay in one paragraph.
-At the end, translate "Twitter:" to "Twitter (akaun rasmi):" and retain the Twitter handle.
-Do not include slang or shouting. Keep tone friendly, chill, and neutral.
-Do not add any explanation or header. Just return the translated block as-is.
-Input:
-{text}"""
-            }]
+
+✅ If the structure is valid:
+1. Keep the structure, punctuation, indentation, and English words (except the description) EXACTLY as they are.
+2. Only translate the **description** (the full paragraph under "Description:") into Bahasa Melayu — use friendly, chill, easy-to-understand tone.
+3. Translate **"Stage"** to **"fasa"**, but keep the stage name like "Series A" in double quotes.
+4. Translate **"Has token: No"** into **Has token: (belum)**, and  **"Has token: Yes"** into **Has token: (ada)**.
+5. Change the label **"Twitter:"** into **"Twitter (akaun rasmi):"**, but keep the Twitter handle exactly as it is (no translation).
+6. Do NOT add any headings, explanations, or extras. Just return the exact updated block.
+
+Now translate this:
+{text}
+""".strip()
+
+    payload = {
+        "contents": [{
+            "parts": [{"text": prompt}]
         }]
     }
 
@@ -173,6 +178,7 @@ Input:
     except Exception as e:
         print(f"❌ Gemini translation failed: {e}")
     return None
+
 
 def post_to_wordpress(entry):
     credentials = f"{WP_USER}:{WP_APP_PASSWORD}"
