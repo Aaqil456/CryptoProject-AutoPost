@@ -1,4 +1,47 @@
 {
-  "last_updated": "2025-05-08 10:04:00",
-  "data": []
+  "last_updated": "2025-05-08 10:06:33",
+  "data": [
+    {
+      "id": "1920246416259088465",
+      "text": "AppLayer $APPL:\n- Raised: N/A | fasa: \"Undisclosed\" | Has token: (belum)\n- Investors: Arcanum Ventures\n- Description: Platform rantaian blok modular yang menampilkan Kit Pembangunan Rantaian Blok, rangkaian serasi EVM, dan saling kendalian rantaian silang untuk membina dan menghubungkan rantaian khusus aplikasi.\n- Twitter (akaun rasmi): @AppLayerLabs",
+      "images": [],
+      "tweet_url": "https://x.com/codeglitch/status/1920246416259088465"
+    },
+    {
+      "id": "1920245963266068977",
+      "text": "BVNK:\n- Raised: N/A | fasa: \"Strategic\" | Has token: (belum)\n- Investors: Visa\n- Description: Platform perbankan dan pembayaran untuk bisnes yang memang dah biasa dengan dunia kripto. BVNK membolehkan pembayaran dalam mata wang biasa dan kripto, pegangan aset pelbagai mata wang, dan transfer global melalui API yang mesra pembangun.\n- Twitter (akaun rasmi): @BVNKFinance",
+      "images": [],
+      "tweet_url": "https://x.com/codeglitch/status/1920245963266068977"
+    },
+    {
+      "id": "1920245822534324599",
+      "text": "CodeAnt AI\n- Raised: $2.00M | Stage: \"Seed\" | Has token: (belum)\n- Investors: Y Combinator and 5 others\n- Description: Platform semakan kod berkuasa AI yang automatik kesan isu kualiti kod dan kelemahan keselamatan. Ia bergabung dengan IDE dan CI/CD, serta menyokong lebih 30 bahasa untuk kurangkan masa semakan dan pepijat sebanyak 50%.\n- Twitter (akaun rasmi): @CodeAntAI",
+      "images": [],
+      "tweet_url": "https://x.com/codeglitch/status/1920245822534324599"
+    },
+    {
+      "id": "1919882388387094935",
+      "text": "Fuze\n- Raised: $12.20M | Stage: \"Series A\" | Has token: (belum)\n- Investors: Galaxy and 2 others\n- Description: Fuze menawarkan platform label putih yang membolehkan bank, fintech, dan perusahaan melancarkan produk aset digital yang dikawal selia seperti stablecoin, CBDC dan aset token tanpa menguruskan kerumitan blockchain atau pematuhan.\n- Twitter (akaun rasmi): @fuzefinance",
+      "images": [],
+      "tweet_url": "https://x.com/codeglitch/status/1919882388387094935"
+    },
+    {
+      "id": "1919881091210740087",
+      "text": "DogeOS\n- Raised: $6.90M | fasa: Undisclosed | Has token: (belum)\n- Investors: Polychain Capital\n- Description: DogeOS ialah lapisan aplikasi terdesentralisasi yang dibina khas untuk blockchain Dogecoin. Ia membolehkan pembangun mencipta dApps, permainan, dan perkhidmatan DeFi untuk meluaskan kegunaan Dogecoin, lebih daripada sekadar asal-usulnya sebagai memecoin.\n- Twitter (akaun rasmi): @DogeOS",
+      "images": [],
+      "tweet_url": "https://x.com/codeglitch/status/1919881091210740087"
+    },
+    {
+      "id": "1919481983693901874",
+      "text": "Doppel\n- Raised: $35M | Stage: \"Series B\" | Has token: (belum)\n- Investors: Bessemer Venture Partners and 7 others\n- Description: Platform perlindungan risiko digital berkuasa AI yang menggunakan LLM dan kepakaran manusia untuk mengesan dan menghapuskan pancingan data, penyamaran, dan penipuan di seluruh web, media sosial, dan dark web.\n- Twitter (akaun rasmi): @DoppelHQ",
+      "images": [],
+      "tweet_url": "https://x.com/codeglitch/status/1919481983693901874"
+    },
+    {
+      "id": "1918426056286945531",
+      "text": "WootzApp:\n- Raised: N/A | Stage: \"Incubation\" | Has token: (belum)\n- Investors: Alliance DAO\n- Description: Pelayar mudah alih berasaskan Chromium yang memberi ganjaran kepada pengguna dengan crypto kerana menyelesaikan tugasan data AI semasa melayari, dengan pengalaman tanpa iklan dan mengutamakan privasi serta alat pembangunan untuk aliran kerja AI mudah alih.\n- Twitter (akaun rasmi): @WootzApp",
+      "images": [],
+      "tweet_url": "https://x.com/codeglitch/status/1918426056286945531"
+    }
+  ]
 }
