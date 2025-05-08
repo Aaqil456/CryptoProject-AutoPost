@@ -6,7 +6,6 @@ import requests
 import base64
 
 # === ENV ===
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY")
 WP_URL = os.getenv("WP_API_URL")
 WP_USER = os.getenv("WP_USER")
@@ -14,7 +13,6 @@ WP_APP_PASSWORD = os.getenv("WP_APP_PASS")
 CATEGORY_ID = 1401
 RESULTS_FILE = "results.json"
 
-# === Load existing posted data
 def load_existing_results():
     if os.path.exists(RESULTS_FILE):
         with open(RESULTS_FILE, "r", encoding="utf-8") as f:
@@ -24,7 +22,6 @@ def load_existing_results():
                 return []
     return []
 
-# === Save updated results
 def save_results(data):
     final_result = {
         "last_updated": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -34,7 +31,6 @@ def save_results(data):
         json.dump(final_result, f, ensure_ascii=False, indent=2)
     print("✅ All tweets processed and saved to results.json")
 
-# === Fetch Tweets ===
 def fetch_tweets_rapidapi(username, max_tweets=10):
     url = "https://twttrapi.p.rapidapi.com/user-tweets"
     querystring = {"username": username}
@@ -73,14 +69,38 @@ def fetch_tweets_rapidapi(username, max_tweets=10):
                                             .get("content", {}) \
                                             .get("tweetResult", {}) \
                                             .get("result", {})
-                        legacy = tweet_result.get("legacy", {})
-                        text = legacy.get("full_text", legacy.get("text", ""))
-                        tweet_id = tweet_result.get("rest_id", "")
-                        screen_name = legacy.get("screen_name", username)
 
+                        tweet_id = tweet_result.get("rest_id", "")
+                        screen_name = tweet_result.get("core", {}) \
+                            .get("user_result", {}) \
+                            .get("result", {}) \
+                            .get("legacy", {}) \
+                            .get("screen_name", username)
+
+                        # ✅ Improved full text extraction with note tweets included
+                        note_text = tweet_result.get("note_tweet", {}) \
+                            .get("note_tweet_results", {}) \
+                            .get("result", {}) \
+                            .get("text")
+
+                        tweet_legacy = tweet_result.get("legacy", {})
+                        retweeted_legacy = tweet_result.get("retweeted_status_result", {}) \
+                            .get("result", {}) \
+                            .get("legacy", {})
+                        quoted_legacy = tweet_result.get("quoted_status_result", {}) \
+                            .get("result", {}) \
+                            .get("legacy", {})
+
+                        text = note_text or \
+                               tweet_legacy.get("full_text") or \
+                               retweeted_legacy.get("full_text") or \
+                               quoted_legacy.get("full_text") or \
+                               tweet_legacy.get("text", "")
+
+                        # === Extract media (from the original tweet only)
                         media_urls = []
-                        media = legacy.get("extended_entities", {}).get("media", []) or \
-                                legacy.get("entities", {}).get("media", [])
+                        media = tweet_legacy.get("extended_entities", {}).get("media", []) or \
+                                tweet_legacy.get("entities", {}).get("media", [])
                         for m in media:
                             if m.get("type") == "photo":
                                 media_url = m.get("media_url_https") or m.get("media_url")
@@ -92,7 +112,7 @@ def fetch_tweets_rapidapi(username, max_tweets=10):
 
                         tweets.append({
                             "id": tweet_id,
-                            "text": text,
+                            "text": text.strip(),
                             "images": media_urls,
                             "tweet_url": f"https://x.com/{screen_name}/status/{tweet_id}"
                         })
@@ -100,40 +120,15 @@ def fetch_tweets_rapidapi(username, max_tweets=10):
                         if len(tweets) >= max_tweets:
                             return tweets
 
-                    except:
+                    except Exception as e:
+                        print(f"[⚠️ Entry skipped due to error] {e}")
                         continue
 
         return tweets
-    except:
+    except Exception as e:
+        print(f"❌ Exception fetching tweets for @{username}: {e}")
         return []
 
-# === Translate ===
-def translate_text_gemini(text):
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_API_KEY}"
-    headers = {"Content-Type": "application/json"}
-    prompt = (
-        f"Translate the following tweet into Malay (Bahasa Melayu) only. "
-        f"make it sound like a 3rd person and instructional "
-        f"for the word (I) translate it into (kami) in malay "
-        f"Do not include English. Return just the translated version:\n\n\"{text}\""
-    )
-    body = {
-        "contents": [
-            {
-                "role": "user",
-                "parts": [{"text": prompt}]
-            }
-        ]
-    }
-    try:
-        res = requests.post(url, headers=headers, json=body)
-        if res.status_code == 200:
-            return res.json()['candidates'][0]['content']['parts'][0]['text']
-    except:
-        return None
-    return None
-
-# === WordPress Poster ===
 def post_to_wordpress(entry):
     credentials = f"{WP_USER}:{WP_APP_PASSWORD}"
     token = base64.b64encode(credentials.encode()).decode()
@@ -163,18 +158,18 @@ def post_to_wordpress(entry):
                     media = upload.json()
                     media_id = media.get("id")
                     uploaded_image_url = media.get("source_url")
-        except:
-            pass
+        except Exception as e:
+            print(f"⚠️ Failed to upload image: {e}")
 
-    content_html = f"<p>{entry['translated']}</p>"
+    content_html = f"<p>{entry['text']}</p>"
     if uploaded_image_url:
         content_html = f"<img src='{uploaded_image_url}' alt='tweet image' /><br>" + content_html
     if entry.get("tweet_url"):
         content_html += f"<p>📌 Sumber: <a href='{entry['tweet_url']}'>{entry['tweet_url']}</a></p>"
 
     post_data = {
-        "title": entry["translated"][:60],
-        "content": content_html,
+        "title": entry["text"][:60].strip(),
+        "content": content_html.strip(),
         "status": "private",
         "categories": [CATEGORY_ID]
     }
@@ -184,7 +179,6 @@ def post_to_wordpress(entry):
     response = requests.post(f"{WP_URL}/posts", headers=headers, json=post_data)
     return response.status_code == 201
 
-# === MAIN ===
 if __name__ == "__main__":
     usernames = ["flb_xyz"]
     existing = load_existing_results()
@@ -199,23 +193,13 @@ if __name__ == "__main__":
                 print(f"⏭️ Skipped (already posted): {tweet['tweet_url']}")
                 continue
 
-            translated = translate_text_gemini(tweet["text"])
-            if translated:
-                post_entry = {
-                    "id": tweet["id"],
-                    "original": tweet["text"],
-                    "translated": translated,
-                    "images": tweet["images"],
-                    "tweet_url": tweet["tweet_url"]
-                }
-
-                success = post_to_wordpress(post_entry)
-                if success:
-                    print(f"✅ Posted: {tweet['tweet_url']}")
-                    result_data.append(post_entry)
-                    existing_ids.add(tweet["id"])
-                else:
-                    print(f"❌ Failed to post: {tweet['tweet_url']}")
+            success = post_to_wordpress(tweet)
+            if success:
+                print(f"✅ Posted: {tweet['tweet_url']}")
+                result_data.append(tweet)
+                existing_ids.add(tweet["id"])
+            else:
+                print(f"❌ Failed to post: {tweet['tweet_url']}")
 
     save_results(result_data)
     print("\n📦 All done.")
