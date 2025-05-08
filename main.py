@@ -32,7 +32,7 @@ def save_results(data):
         json.dump(final_result, f, ensure_ascii=False, indent=2)
     print("✅ All tweets processed and saved to results.json")
 
-def fetch_tweets_rapidapi(username, max_tweets=10):
+def fetch_tweets_rapidapi(username, max_tweets=30):
     url = "https://twttrapi.p.rapidapi.com/user-tweets"
     querystring = {"username": username}
     headers = {
@@ -133,7 +133,7 @@ def fetch_tweets_rapidapi(username, max_tweets=10):
         return []
 
 def translate_with_gemini(text):
-    gemini_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
+    gemini_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
     headers = {
         "Content-Type": "application/json"
     }
