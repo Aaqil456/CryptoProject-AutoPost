@@ -140,26 +140,35 @@ def translate_with_gemini(text):
     prompt = f"""
 You are a translation assistant. Given a block of text, your job is to check if it follows this structure:
 
-name: [Project Name]
-Raised: $[Amount] | Stage: [Stage Name] | Has token: [Yes/No]
-Investors: [Investor list or "Not disclosed"]
-Description: [One paragraph in English]
-Twitter:
-@[TwitterHandle]
+name: [Project Name]  
+Raised: $[Amount] | Stage: [Stage Name] | Has token: [Yes/No]  
+Investors: [Investor list or "Not disclosed"]  
+Description: [One paragraph in English]  
+Twitter:  
+@[TwitterHandle]  
 
-✅ If the text DOES NOT follow this format (no need to be exactly as long the sructure is similar) — respond only with:
+✅ If the text DOES NOT follow this format (no need to be exactly identical — as long as the structure is similar) — respond only with:
 null
 
-✅ If the structure is valid: 
-then you can proceed to translate
-1. Keep the structure, punctuation, indentation, as they are.
-2. translate the **description** (the full paragraph under "Description:") into Bahasa Melayu — use friendly, chill, easy-to-understand tone.
-3. Translate **"Stage"** to **"fasa"**, but keep the stage name like "Series A" in double quotes.
-4. Translate **"Has token: No"** into **Has token: (belum)**, and  **"Has token: Yes"** into **Has token: (ada)**.
-5. Change the label **"Twitter:"** into **"Twitter (akaun rasmi):"**, but keep the Twitter handle exactly as it is (no translation).
-6. Do NOT add any headings, explanations, or extras. Just return the exact updated block.
+✅ If the structure is valid, proceed with the following instructions:
 
-Now translate this:
+1. Keep the structure, punctuation, indentation, and line breaks exactly the same.  
+2. Only translate the **Description** (the paragraph under "Description:") into **Bahasa Melayu** using a **friendly, chill, easy-to-understand tone**.  
+3. Change **"Stage"** to **"Fasa"**, but keep the value in double quotes (e.g. "Series A").  
+4. Change **"Has token: No"** to **Ada token: (belum)**, and **"Has token: Yes"** to **Ada token: (ada)**.  
+5. Change the label **"Twitter:"** to **"Twitter (akaun rasmi):"** but keep the handle untouched.  
+6. Do NOT add any explanations, introductions, or extra commentary. Return only the translated block.
+
+👇 Here is the  correct format of the final expected output (in Bahasa Melayu):
+
+Nama: OrbitGrift  
+Dana: [Amount in malay] | Fasa: "[Stage Name]" | Ada token: [Ada, Tiada]  
+Pelabur: [Investor list in malay or "Tidak Dideahkan"]  
+Deskripsi:[One paragraph description in Malay]  
+Twitter (akaun rasmi):  
+@[TwitterHandle]   
+
+Now process this:  
 {text}
 """.strip()
 
