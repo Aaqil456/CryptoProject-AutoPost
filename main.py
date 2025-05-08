@@ -138,7 +138,7 @@ def translate_with_gemini(text):
         "Content-Type": "application/json"
     }
     prompt = f"""
-You are a translation assistant. Given a block of text, your job is to check if it follows *exactly* this structure:
+You are a translation assistant. Given a block of text, your job is to check if it follows this structure:
 
 name: [Project Name]
 Raised: $[Amount] | Stage: [Stage Name] | Has token: [Yes/No]
@@ -150,9 +150,10 @@ Twitter:
 ✅ If the text DOES NOT follow this format (no need to be exactly as long the sructure is similar) — respond only with:
 null
 
-✅ If the structure is valid:
+✅ If the structure is valid: 
+then you can proceed to translate
 1. Keep the structure, punctuation, indentation, as they are.
-2. Only translate the **description** (the full paragraph under "Description:") into Bahasa Melayu — use friendly, chill, easy-to-understand tone.
+2. translate the **description** (the full paragraph under "Description:") into Bahasa Melayu — use friendly, chill, easy-to-understand tone.
 3. Translate **"Stage"** to **"fasa"**, but keep the stage name like "Series A" in double quotes.
 4. Translate **"Has token: No"** into **Has token: (belum)**, and  **"Has token: Yes"** into **Has token: (ada)**.
 5. Change the label **"Twitter:"** into **"Twitter (akaun rasmi):"**, but keep the Twitter handle exactly as it is (no translation).
