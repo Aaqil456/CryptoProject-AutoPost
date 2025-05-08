@@ -238,6 +238,11 @@ if __name__ == "__main__":
                 print(f"⏭️ Skipped (already posted): {tweet['tweet_url']}")
                 continue
 
+            # Only post and save if the translation is valid and not "null"
+            if not tweet["text"] or tweet["text"].strip().lower() == "null":
+                print(f"❌ Skipped invalid translation: {tweet['tweet_url']}")
+                continue
+
             success = post_to_wordpress(tweet)
             if success:
                 print(f"✅ Posted: {tweet['tweet_url']}")
@@ -246,6 +251,10 @@ if __name__ == "__main__":
             else:
                 print(f"❌ Failed to post: {tweet['tweet_url']}")
 
-    save_results(result_data)
+    # Save only those with valid translations again (extra safety)
+    final_clean_data = [t for t in result_data if t.get("text") and t["text"].strip().lower() != "null"]
+    save_results(final_clean_data)
+
     print("\n📦 All done.")
-    print(json.dumps(result_data, indent=2, ensure_ascii=False))
+    print(json.dumps(final_clean_data, indent=2, ensure_ascii=False))
+
