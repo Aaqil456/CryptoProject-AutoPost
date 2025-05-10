@@ -49,11 +49,14 @@ def extract_dashboard_fields(text):
                 if part.lower().startswith("dana:"):
                     result["dana"] = part.split(":", 1)[1].strip()
                 elif "fasa:" in part.lower():
-                    match = re.search(r'Fasa:\s*"?(.*?)"?$', part, re.IGNORECASE)
+                    match = re.search(r'Fasa:\s*"?([^"]+)"?', part, re.IGNORECASE)
                     if match:
                         result["fasa"] = match.group(1).strip()
                 elif "ada token" in part.lower():
-                    result["ada_token"] = "ada" if "ada" in part.lower() else "belum"
+                    token_match = re.search(r"Ada token:\s*\((.*?)\)", part, re.IGNORECASE)
+                    if token_match:
+                        value = token_match.group(1).strip().lower()
+                        result["ada_token"] = "ada" if value == "ada" else "belum"
 
         elif line.lower().startswith("pelabur:"):
             result["pelabur"] = line.split(":", 1)[1].strip()
@@ -66,6 +69,7 @@ def extract_dashboard_fields(text):
             result["twitter"] = twitter_handle if twitter_handle != "@" else "-"
 
     return result if "nama" in result else None
+
 
 
 def load_dashboard_json():
