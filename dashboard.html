@@ -75,7 +75,10 @@
   <script>
     $(document).ready(function () {
       $('#dashboard').DataTable({
-        ajax: 'https://aaqil456.github.io/CryptoProject-AutoPost/dashboard.json',
+        ajax: {
+          url: 'https://aaqil456.github.io/CryptoProject-AutoPost/dashboard.json',
+          dataSrc: ''
+        },
         columns: [
           { data: 'nama' },
           { data: 'dana' },
@@ -85,7 +88,7 @@
           { data: 'deskripsi' },
           { data: 'twitter',
             render: function(data) {
-              if (data === "-" || data.trim() === "") return "-";
+              if (!data || data === "-" || data.trim() === "") return "-";
               return '<a href="https://x.com/' + data.replace('@', '') + '" target="_blank">' + data + '</a>';
             }
           },
