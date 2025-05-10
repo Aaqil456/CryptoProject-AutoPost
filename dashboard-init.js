@@ -5,23 +5,25 @@ jQuery(document).ready(function ($) {
       dataSrc: ''
     },
     columns: [
-      { data: 'nama' },
-      { data: 'dana' },
-      { data: 'fasa' },
-      { data: 'ada_token' },
-      { data: 'pelabur' },
-      { data: 'deskripsi' },
+      { data: 'nama', defaultContent: '-' },
+      { data: 'dana', defaultContent: '-' },
+      { data: 'fasa', defaultContent: '-' },
+      { data: 'ada_token', defaultContent: '-' },
+      { data: 'pelabur', defaultContent: '-' },
+      { data: 'deskripsi', defaultContent: '-' },
       {
         data: 'twitter',
-        render: function(data) {
+        defaultContent: '-',
+        render: function (data) {
           if (!data || data === "-" || data.trim() === "") return "-";
           return '<a href="https://x.com/' + data.replace('@', '') + '" target="_blank">' + data + '</a>';
         }
       },
       {
         data: 'tweet_url',
-        render: function(data) {
-          return '<a href="' + data + '" target="_blank">🔗</a>';
+        defaultContent: '-',
+        render: function (data) {
+          return data ? '<a href="' + data + '" target="_blank">🔗</a>' : '-';
         }
       }
     ],
