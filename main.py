@@ -65,7 +65,7 @@ def extract_dashboard_fields(text):
             twitter_handle = line.strip()
             result["twitter"] = twitter_handle if twitter_handle != "@" else "-"
 
-    return result if "nama" in result and "deskripsi" in result else None
+    return result if "nama" in result else None
 
 
 def load_dashboard_json():
