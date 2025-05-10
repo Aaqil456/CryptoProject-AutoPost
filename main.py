@@ -3,6 +3,8 @@ import json
 import datetime
 import requests
 import base64
+import re
+
 
 # === ENV ===
 RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY")
