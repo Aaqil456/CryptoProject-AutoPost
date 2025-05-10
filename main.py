@@ -35,13 +35,16 @@ def save_results(data):
 def extract_dashboard_fields(text):
     lines = text.split("\n")
     result = {}
+
     for line in lines:
         if line.lower().startswith("nama:"):
             result["nama"] = line.split(":", 1)[1].strip()
         elif line.lower().startswith("dana:"):
-            result["dana"] = line.split(":", 1)[1].split("|")[0].strip()
+            result["dana"] = line.split(":", 1)[1].strip()
         elif "fasa:" in line.lower():
-            result["fasa"] = line.split("Fasa:", 1)[1].split("|")[0].strip().replace('"', '')
+            match = re.search(r'Fasa:\s*"?([^|"]+)"?', line, re.IGNORECASE)
+            if match:
+                result["fasa"] = match.group(1).strip()
         elif "ada token" in line.lower():
             result["ada_token"] = "ada" if "ada" in line.lower() else "belum"
         elif line.lower().startswith("pelabur:"):
@@ -50,6 +53,7 @@ def extract_dashboard_fields(text):
             result["deskripsi"] = line.split(":", 1)[1].strip()
         elif line.strip().startswith("@"):
             result["twitter"] = line.strip()
+
     return result if "nama" in result and "deskripsi" in result else None
 
 def load_dashboard_json():
