@@ -1,6 +1,5 @@
 import os
 import json
-import time
 import datetime
 import requests
 import base64
@@ -12,6 +11,7 @@ WP_USER = os.getenv("WP_USER")
 WP_APP_PASSWORD = os.getenv("WP_APP_PASS")
 CATEGORY_ID = 1433
 RESULTS_FILE = "results.json"
+DASHBOARD_FILE = "dashboard.json"
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 def load_existing_results():
@@ -31,6 +31,70 @@ def save_results(data):
     with open(RESULTS_FILE, "w", encoding="utf-8") as f:
         json.dump(final_result, f, ensure_ascii=False, indent=2)
     print("✅ All tweets processed and saved to results.json")
+
+def extract_dashboard_fields(text):
+    lines = text.split("\n")
+    result = {}
+    for line in lines:
+        if line.lower().startswith("nama:"):
+            result["nama"] = line.split(":", 1)[1].strip()
+        elif line.lower().startswith("dana:"):
+            result["dana"] = line.split(":", 1)[1].split("|")[0].strip()
+        elif "fasa:" in line.lower():
+            result["fasa"] = line.split("Fasa:", 1)[1].split("|")[0].strip().replace('"', '')
+        elif "ada token" in line.lower():
+            result["ada_token"] = "ada" if "ada" in line.lower() else "belum"
+        elif line.lower().startswith("pelabur:"):
+            result["pelabur"] = line.split(":", 1)[1].strip()
+        elif line.lower().startswith("deskripsi:"):
+            result["deskripsi"] = line.split(":", 1)[1].strip()
+        elif line.strip().startswith("@"):
+            result["twitter"] = line.strip()
+    return result if "nama" in result and "deskripsi" in result else None
+
+def load_dashboard_json():
+    if os.path.exists(DASHBOARD_FILE):
+        with open(DASHBOARD_FILE, "r", encoding="utf-8") as f:
+            try:
+                return json.load(f)
+            except:
+                return []
+    return []
+
+def save_dashboard_json(data):
+    with open(DASHBOARD_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+    print("📊 Dashboard updated and saved.")
+
+def generate_dashboard_from_results():
+    if not os.path.exists(RESULTS_FILE):
+        return
+
+    with open(RESULTS_FILE, "r", encoding="utf-8") as f:
+        try:
+            results_data = json.load(f).get("data", [])
+        except:
+            return
+
+    latest_entries = results_data[-30:]
+    dashboard = load_dashboard_json()
+    existing_urls = set(entry.get("tweet_url") for entry in dashboard)
+
+    new_dashboard = dashboard.copy()
+
+    for item in latest_entries:
+        text = item.get("text", "")
+        tweet_url = item.get("tweet_url", "")
+        if not text or not tweet_url or tweet_url in existing_urls:
+            continue
+
+        parsed = extract_dashboard_fields(text)
+        if parsed:
+            parsed["tweet_url"] = tweet_url
+            new_dashboard.append(parsed)
+            existing_urls.add(tweet_url)
+
+    save_dashboard_json(new_dashboard)
 
 def fetch_tweets_rapidapi(username, max_tweets=30):
     url = "https://twttrapi.p.rapidapi.com/user-tweets"
@@ -189,57 +253,6 @@ Now process this:
         print(f"❌ Gemini translation failed: {e}")
     return None
 
-
-def post_to_wordpress(entry):
-    credentials = f"{WP_USER}:{WP_APP_PASSWORD}"
-    token = base64.b64encode(credentials.encode()).decode()
-    headers = {
-        "Authorization": f"Basic {token}",
-        "Content-Type": "application/json"
-    }
-
-    images = entry.get("images", [])
-    image_url = images[0] if images else None
-
-    media_id = None
-    uploaded_image_url = ""
-
-    if image_url:
-        try:
-            img_resp = requests.get(image_url, headers={"User-Agent": "Mozilla/5.0"})
-            if img_resp.status_code == 200:
-                file_name = image_url.split("/")[-1] or "image.jpg"
-                media_headers = {
-                    "Authorization": f"Basic {token}",
-                    "Content-Disposition": f"attachment; filename={file_name}",
-                    "Content-Type": "image/jpeg"
-                }
-                upload = requests.post(f"{WP_URL}/media", headers=media_headers, data=img_resp.content)
-                if upload.status_code == 201:
-                    media = upload.json()
-                    media_id = media.get("id")
-                    uploaded_image_url = media.get("source_url")
-        except Exception as e:
-            print(f"⚠️ Failed to upload image: {e}")
-
-    content_html = f"<p>{entry['text']}</p>"
-    if uploaded_image_url:
-        content_html = f"<img src='{uploaded_image_url}' alt='tweet image' /><br>" + content_html
-    if entry.get("tweet_url"):
-        content_html += f"<p>📌 Sumber: <a href='{entry['tweet_url']}'>{entry['tweet_url']}</a></p>"
-
-    post_data = {
-        "title": entry["text"][:60].strip(),
-        "content": content_html.strip(),
-        "status": "private",
-        "categories": [CATEGORY_ID]
-    }
-    if media_id:
-        post_data["featured_media"] = media_id
-
-    response = requests.post(f"{WP_URL}/posts", headers=headers, json=post_data)
-    return response.status_code == 201
-
 if __name__ == "__main__":
     usernames = ["codeglitch"]
     existing = load_existing_results()
@@ -254,22 +267,18 @@ if __name__ == "__main__":
                 print(f"⏭️ Skipped (already posted): {tweet['tweet_url']}")
                 continue
 
-            # Only post and save if the translation is valid and not "null"
             if not tweet["text"] or tweet["text"].strip().lower() == "null":
                 print(f"❌ Skipped invalid translation: {tweet['tweet_url']}")
                 continue
 
-            success = post_to_wordpress(tweet)
-            if success:
-                print(f"✅ Posted: {tweet['tweet_url']}")
-                result_data.append(tweet)
-                existing_ids.add(tweet["id"])
-            else:
-                print(f"❌ Failed to post: {tweet['tweet_url']}")
+            result_data.append(tweet)
+            existing_ids.add(tweet["id"])
+            print(f"✅ Collected: {tweet['tweet_url']}")
 
-    # Save only those with valid translations again (extra safety)
     final_clean_data = [t for t in result_data if t.get("text") and t["text"].strip().lower() != "null"]
     save_results(final_clean_data)
+
+    generate_dashboard_from_results()
 
     print("\n📦 All done.")
     print(json.dumps(final_clean_data, indent=2, ensure_ascii=False))
