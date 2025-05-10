@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-05-10 13:13:03",
+  "last_updated": "2025-05-10 15:12:07",
   "data": [
     {
       "id": "1920246416259088465",
@@ -30,6 +30,12 @@
       "text": "Nama: ORBITGRIFT\nDana: N/A | Fasa: \"Incubation\" | Ada token: (ada)\nPelabur: Alliance DAO\nDeskripsi: ORBITGRIFT ialah ejen AI DeFi di Solana yang menawarkan pertukaran token, penghubungan, pertaruhan, pinjaman dan pengurusan portfolio, dengan token ORBIT didagangkan secara aktif dan menyokong ekosistem utilitinya.\nTwitter (akaun rasmi):\n@",
       "images": [],
       "tweet_url": "https://x.com/codeglitch/status/1919882003245380055"
+    },
+    {
+      "id": "1920606958643523853",
+      "text": "```\nXp.FinanceXPF:\n- Raised: $200K | Fasa: \"Seed\" | Ada token: (belum)\n- Investors: Xenoverge Angel Fund\n- Deskripsi: Protokol pinjaman DeFi di XRPL yang membolehkan pinjaman berlebihan cagaran menggunakan XRP, dengan transaksi yang pantas, kos rendah dan selamat.\n- Twitter (akaun rasmi):\n@xpfinancexrp\n```",
+      "images": [],
+      "tweet_url": "https://x.com/codeglitch/status/1920606958643523853"
     }
   ]
 }
