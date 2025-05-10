@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Projek Crypto</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+    h1 {
+      text-align: center;
+      color: #ffffff;
+    }
+    table.dataTable {
+      width: 100% !important;
+      background-color: #1e1e1e;
+      border-collapse: collapse;
+      border: 1px solid #333;
+    }
+    table.dataTable thead th {
+      background-color: #272727;
+      color: #ffffff;
+      border-bottom: 1px solid #444;
+    }
+    table.dataTable tbody td {
+      border-top: 1px solid #333;
+      color: #e0e0e0;
+    }
+    table.dataTable tbody tr:hover {
+      background-color: #2a2a2a;
+    }
+    a {
+      color: #4fc3f7;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .dataTables_wrapper .dataTables_filter input {
+      background: #1e1e1e;
+      border: 1px solid #555;
+      color: #eee;
+    }
+    .dataTables_wrapper .dataTables_length select {
+      background: #1e1e1e;
+      border: 1px solid #555;
+      color: #eee;
+    }
+  </style>
+</head>
+<body>
+  <h1>📊 Dashboard Projek Crypto (Dark Mode)</h1>
+  <table id="dashboard" class="display">
+    <thead>
+      <tr>
+        <th>Nama</th>
+        <th>Dana</th>
+        <th>Fasa</th>
+        <th>Token</th>
+        <th>Pelabur</th>
+        <th>Deskripsi</th>
+        <th>Twitter</th>
+        <th>Link</th>
+      </tr>
+    </thead>
+  </table>
+
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#dashboard').DataTable({
+        ajax: 'https://aaqil456.github.io/CryptoProject-AutoPost/dashboard.json',
+        columns: [
+          { data: 'nama' },
+          { data: 'dana' },
+          { data: 'fasa' },
+          { data: 'ada_token' },
+          { data: 'pelabur' },
+          { data: 'deskripsi' },
+          { data: 'twitter',
+            render: function(data) {
+              if (data === "-" || data.trim() === "") return "-";
+              return '<a href="https://x.com/' + data.replace('@', '') + '" target="_blank">' + data + '</a>';
+            }
+          },
+          { data: 'tweet_url',
+            render: function(data) {
+              return '<a href="' + data + '" target="_blank">🔗</a>';
+            }
+          }
+        ],
+        pageLength: 5,
+        language: {
+          search: "Cari Projek:",
+          lengthMenu: "Papar _MENU_ entri",
+          info: "Menunjukkan _START_ hingga _END_ dari _TOTAL_ entri",
+          paginate: {
+            previous: "Sebelum",
+            next: "Seterusnya"
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
