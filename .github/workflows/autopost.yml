@@ -78,7 +78,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add results.json || echo "No results.json to commit"
+          git add results.json dashboard.json || echo "No results.json to commit"
           git status
-          git diff --cached --quiet || git commit -m "Update results.json [auto]"
+          git diff --cached --quiet || git commit -m "Update results.json & dashboard.json [auto]"
           git push https://x-access-token:${{ secrets.ACTIONS_PAT }}@github.com/${{ github.repository }}.git HEAD:main
