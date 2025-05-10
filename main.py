@@ -35,28 +35,38 @@ def save_results(data):
     print("✅ All tweets processed and saved to results.json")
 
 def extract_dashboard_fields(text):
+    import re
     lines = text.split("\n")
     result = {}
 
     for line in lines:
         if line.lower().startswith("nama:"):
             result["nama"] = line.split(":", 1)[1].strip()
-        elif line.lower().startswith("dana:"):
-            result["dana"] = line.split(":", 1)[1].strip()
-        elif "fasa:" in line.lower():
-            match = re.search(r'Fasa:\s*"?([^|"]+)"?', line, re.IGNORECASE)
-            if match:
-                result["fasa"] = match.group(1).strip()
-        elif "ada token" in line.lower():
-            result["ada_token"] = "ada" if "ada" in line.lower() else "belum"
+
+        elif line.lower().startswith("dana:") or "fasa:" in line.lower() or "ada token" in line.lower():
+            parts = [part.strip() for part in line.split("|")]
+            for part in parts:
+                if part.lower().startswith("dana:"):
+                    result["dana"] = part.split(":", 1)[1].strip()
+                elif "fasa:" in part.lower():
+                    match = re.search(r'Fasa:\s*"?(.*?)"?$', part, re.IGNORECASE)
+                    if match:
+                        result["fasa"] = match.group(1).strip()
+                elif "ada token" in part.lower():
+                    result["ada_token"] = "ada" if "ada" in part.lower() else "belum"
+
         elif line.lower().startswith("pelabur:"):
             result["pelabur"] = line.split(":", 1)[1].strip()
+
         elif line.lower().startswith("deskripsi:"):
             result["deskripsi"] = line.split(":", 1)[1].strip()
+
         elif line.strip().startswith("@"):
-            result["twitter"] = line.strip()
+            twitter_handle = line.strip()
+            result["twitter"] = twitter_handle if twitter_handle != "@" else "-"
 
     return result if "nama" in result and "deskripsi" in result else None
+
 
 def load_dashboard_json():
     if os.path.exists(DASHBOARD_FILE):
