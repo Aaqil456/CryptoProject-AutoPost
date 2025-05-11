@@ -41,21 +41,30 @@ def extract_with_gemini_to_json(text):
     }
 
     prompt = f"""
-You are a structured data extractor. Given a text in Bahasa Melayu, extract the following fields and return them as clean JSON:
-
-- nama
-- dana
-- fasa
-- ada_token
-- pelabur
-- deskripsi
-- twitter
-
-If any field is missing or empty, set its value to "-". Return the result as a valid JSON object only, without explanation.
-
-Now process this:
-{text}
-""".strip()
+    You are a data parser.
+    
+    Extract all available fields from the following project text and return the result in a valid JSON object using this exact structure:
+    
+    {{
+      "nama": "...",
+      "dana": "...",
+      "fasa": "...",
+      "ada_token": "...",
+      "pelabur": "...",
+      "deskripsi": "...",
+      "twitter": "...",
+      "tweet_url": "..."
+    }}
+    
+    Rules:
+    - If any field is not available, return "-" as the value.
+    - Only use "ada" or "belum" for the "ada_token" field.
+    - Do not include any explanations or extra text — just valid JSON.
+    - Keep all formatting JSON-compatible, and do not return markdown.
+    
+    Text to process:
+    {text}
+    """.strip()
 
     payload = {
         "contents": [{ "parts": [{ "text": prompt }] }]
