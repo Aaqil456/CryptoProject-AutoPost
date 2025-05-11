@@ -34,41 +34,45 @@ def save_results(data):
         json.dump(final_result, f, ensure_ascii=False, indent=2)
     print("✅ All tweets processed and saved to results.json")
 
-def extract_dashboard_fields(text):
-    import re
-    lines = text.split("\n")
-    result = {}
+def extract_with_gemini_to_json(text):
+    gemini_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
+    headers = {
+        "Content-Type": "application/json"
+    }
 
-    for line in lines:
-        if line.lower().startswith("nama:"):
-            result["nama"] = line.split(":", 1)[1].strip()
+    prompt = f"""
+You are a structured data extractor. Given a text in Bahasa Melayu, extract the following fields and return them as clean JSON:
 
-        elif line.lower().startswith("dana:") or "fasa:" in line.lower() or "ada token" in line.lower():
-            parts = [part.strip() for part in line.split("|")]
-            for part in parts:
-                if part.lower().startswith("dana:"):
-                    result["dana"] = part.split(":", 1)[1].strip()
-                elif "fasa:" in part.lower():
-                    match = re.search(r'Fasa:\s*"?([^"]+)"?', part, re.IGNORECASE)
-                    if match:
-                        result["fasa"] = match.group(1).strip()
-                elif "ada token" in part.lower():
-                    token_match = re.search(r"Ada token:\s*\((.*?)\)", part, re.IGNORECASE)
-                    if token_match:
-                        value = token_match.group(1).strip().lower()
-                        result["ada_token"] = "ada" if value == "ada" else "belum"
+- nama
+- dana
+- fasa
+- ada_token
+- pelabur
+- deskripsi
+- twitter
 
-        elif line.lower().startswith("pelabur:"):
-            result["pelabur"] = line.split(":", 1)[1].strip()
+If any field is missing or empty, set its value to "-". Return the result as a valid JSON object only, without explanation.
 
-        elif line.lower().startswith("deskripsi:"):
-            result["deskripsi"] = line.split(":", 1)[1].strip()
+Now process this:
+{text}
+""".strip()
 
-        elif line.strip().startswith("@"):
-            twitter_handle = line.strip()
-            result["twitter"] = twitter_handle if twitter_handle != "@" else "-"
+    payload = {
+        "contents": [{ "parts": [{ "text": prompt }] }]
+    }
 
-    return result if "nama" in result else None
+    try:
+        response = requests.post(f"{gemini_url}?key={GEMINI_API_KEY}", headers=headers, json=payload)
+        if response.status_code == 200:
+            gemini_data = response.json()
+            output = gemini_data["candidates"][0]["content"]["parts"][0]["text"].strip()
+            return json.loads(output)
+        else:
+            print("❌ Gemini JSON extractor error:", response.text)
+    except Exception as e:
+        print(f"❌ Gemini JSON extraction failed: {e}")
+    return None
+
 
 
 
@@ -99,7 +103,6 @@ def generate_dashboard_from_results():
     latest_entries = results_data[-30:]
     dashboard = load_dashboard_json()
     existing_urls = set(entry.get("tweet_url") for entry in dashboard)
-
     new_dashboard = dashboard.copy()
 
     for item in latest_entries:
@@ -108,13 +111,14 @@ def generate_dashboard_from_results():
         if not text or not tweet_url or tweet_url in existing_urls:
             continue
 
-        parsed = extract_dashboard_fields(text)
+        parsed = extract_with_gemini_to_json(text)
         if parsed:
             parsed["tweet_url"] = tweet_url
             new_dashboard.append(parsed)
             existing_urls.add(tweet_url)
 
     save_dashboard_json(new_dashboard)
+
 
 def fetch_tweets_rapidapi(username, max_tweets=30):
     url = "https://twttrapi.p.rapidapi.com/user-tweets"
