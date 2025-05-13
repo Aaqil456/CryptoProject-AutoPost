@@ -38,10 +38,17 @@ def save_results(data):
 def extract_dashboard_fields(text):
     lines = text.split("\n")
     result = {}
+    found_nama = False
 
-    for line in lines:
+    for i, line in enumerate(lines):
         if line.lower().startswith("nama:"):
             result["nama"] = line.split(":", 1)[1].strip()
+            found_nama = True
+
+        elif i == 0 and ":" in line and not found_nama:
+            # Assume first line like "Wildcard:" is the name
+            result["nama"] = line.strip().replace(":", "")
+            found_nama = True
 
         elif line.lower().startswith("dana:") or "fasa:" in line.lower() or "ada token" in line.lower():
             parts = [part.strip() for part in line.split("|")]
@@ -69,6 +76,7 @@ def extract_dashboard_fields(text):
             result["twitter"] = twitter_handle if twitter_handle != "@" else "-"
 
     return result if "nama" in result else None
+
 
 
 def fetch_tweets_rapidapi(username, max_tweets=30):
