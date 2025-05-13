@@ -44,19 +44,20 @@ def extract_dashboard_fields(text):
         clean_line = line.strip().lstrip("-").strip()
         lower_line = clean_line.lower()
 
+        # Nama: ...  atau fallback line pertama "Wildcard:"
         if lower_line.startswith("nama:"):
-            result["nama"] = clean_line.split(":", 1)[1].strip()
+            result["nama"] = clean_line.split(":", 1)[1].rstrip(":").strip()
             found_nama = True
-
         elif i == 0 and ":" in clean_line and not found_nama:
-            result["nama"] = clean_line.replace(":", "").strip()
+            result["nama"] = clean_line.rstrip(":").strip()
             found_nama = True
 
-        elif "fasa:" in lower_line or "dana:" in lower_line or "ada token" in lower_line:
+        # Dana / Raised / Fasa / Ada token
+        elif "fasa:" in lower_line or "dana:" in lower_line or "raised:" in lower_line or "ada token" in lower_line:
             parts = [part.strip().lstrip("-").strip() for part in clean_line.split("|")]
             for part in parts:
                 part_lower = part.lower()
-                if part_lower.startswith("dana:"):
+                if part_lower.startswith("dana:") or part_lower.startswith("raised:"):
                     result["dana"] = part.split(":", 1)[1].strip()
                 elif "fasa:" in part_lower:
                     match = re.search(r'Fasa:\s*"?([^"]+)"?', part, re.IGNORECASE)
@@ -75,7 +76,7 @@ def extract_dashboard_fields(text):
             result["deskripsi"] = clean_line.split(":", 1)[1].strip()
 
         elif lower_line.startswith("twitter"):
-            # Special check to get Twitter handle from next line if handle is on new line
+            # Cuba dapatkan dari next line jika handle di bawah
             if i + 1 < len(lines) and lines[i + 1].strip().startswith("@"):
                 result["twitter"] = lines[i + 1].strip()
             else:
@@ -84,6 +85,7 @@ def extract_dashboard_fields(text):
                     result["twitter"] = handle
 
     return result if "nama" in result else None
+
 
 
 
