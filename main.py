@@ -41,39 +41,47 @@ def extract_dashboard_fields(text):
     found_nama = False
 
     for i, line in enumerate(lines):
-        if line.lower().startswith("nama:"):
-            result["nama"] = line.split(":", 1)[1].strip()
+        clean_line = line.strip().lstrip("-").strip()
+        lower_line = clean_line.lower()
+
+        if lower_line.startswith("nama:"):
+            result["nama"] = clean_line.split(":", 1)[1].strip()
             found_nama = True
 
-        elif i == 0 and ":" in line and not found_nama:
-            # Assume first line like "Wildcard:" is the name
-            result["nama"] = line.strip().replace(":", "")
+        elif i == 0 and ":" in clean_line and not found_nama:
+            result["nama"] = clean_line.replace(":", "").strip()
             found_nama = True
 
-        elif line.lower().startswith("dana:") or "fasa:" in line.lower() or "ada token" in line.lower():
-            parts = [part.strip() for part in line.split("|")]
+        elif "fasa:" in lower_line or "dana:" in lower_line or "ada token" in lower_line:
+            parts = [part.strip().lstrip("-").strip() for part in clean_line.split("|")]
             for part in parts:
-                if part.lower().startswith("dana:"):
+                part_lower = part.lower()
+                if part_lower.startswith("dana:"):
                     result["dana"] = part.split(":", 1)[1].strip()
-                elif "fasa:" in part.lower():
+                elif "fasa:" in part_lower:
                     match = re.search(r'Fasa:\s*"?([^"]+)"?', part, re.IGNORECASE)
                     if match:
                         result["fasa"] = match.group(1).strip()
-                elif "ada token" in part.lower():
+                elif "ada token" in part_lower:
                     token_match = re.search(r"Ada token:\s*\((.*?)\)", part, re.IGNORECASE)
                     if token_match:
                         value = token_match.group(1).strip().lower()
                         result["ada_token"] = "ada" if value == "ada" else "belum"
 
-        elif line.lower().startswith("pelabur:"):
-            result["pelabur"] = line.split(":", 1)[1].strip()
+        elif lower_line.startswith("pelabur:"):
+            result["pelabur"] = clean_line.split(":", 1)[1].strip()
 
-        elif line.lower().startswith("deskripsi:"):
-            result["deskripsi"] = line.split(":", 1)[1].strip()
+        elif lower_line.startswith("deskripsi:"):
+            result["deskripsi"] = clean_line.split(":", 1)[1].strip()
 
-        elif line.strip().startswith("@"):
-            twitter_handle = line.strip()
-            result["twitter"] = twitter_handle if twitter_handle != "@" else "-"
+        elif lower_line.startswith("twitter"):
+            # Special check to get Twitter handle from next line if handle is on new line
+            if i + 1 < len(lines) and lines[i + 1].strip().startswith("@"):
+                result["twitter"] = lines[i + 1].strip()
+            else:
+                handle = clean_line.split(":", 1)[-1].strip()
+                if handle.startswith("@"):
+                    result["twitter"] = handle
 
     return result if "nama" in result else None
 
