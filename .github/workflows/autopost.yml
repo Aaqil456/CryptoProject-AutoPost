@@ -1,4 +1,4 @@
-name: Airdrop Scraper, Translate & Post
+name: Crypto Project Scraper, Translate & Post
 
 on:
   workflow_dispatch:
