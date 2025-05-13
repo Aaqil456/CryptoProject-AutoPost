@@ -38,10 +38,13 @@ def post_text_only_to_fb(token, caption):
             f"https://graph.facebook.com/{FB_PAGE_ID}/feed",
             data={"message": caption, "access_token": token}
         )
+        if r.status_code != 200:
+            print(f"[FB API ERROR] {r.status_code}: {r.text[:300]}")
         return r.status_code == 200
     except Exception as e:
         print("[FB Post Error]", e)
         return False
+
 
 def save_results(data):
     final_result = {
