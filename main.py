@@ -24,6 +24,25 @@ def load_existing_results():
     return []
 
 
+def get_fb_token():
+    try:
+        res = requests.get(f"https://graph.facebook.com/v19.0/me/accounts?access_token={LONG_LIVED_USER_TOKEN}")
+        return res.json()["data"][0]["access_token"]
+    except Exception as e:
+        print("[FB Token Error]", e)
+        return None
+
+def post_text_only_to_fb(token, caption):
+    try:
+        r = requests.post(
+            f"https://graph.facebook.com/{FB_PAGE_ID}/feed",
+            data={"message": caption, "access_token": token}
+        )
+        return r.status_code == 200
+    except Exception as e:
+        print("[FB Post Error]", e)
+        return False
+
 def save_results(data):
     final_result = {
         "last_updated": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -32,6 +51,58 @@ def save_results(data):
     with open(RESULTS_FILE, "w", encoding="utf-8") as f:
         json.dump(final_result, f, ensure_ascii=False, indent=2)
     print("✅ All tweets processed and saved to results.json")
+
+
+def post_results_to_facebook(data):
+    token = get_fb_token()
+    if not token:
+        print("❌ Gagal dapat token Facebook.")
+        return
+
+    fb_posted_count = 0
+    fb_posted_list = []
+
+    for entry in data:
+        if entry.get("fb_status") == "Posted":
+            continue  # Skip yang dah post
+
+        dashboard = entry.get("dashboard", {})
+        nama = dashboard.get("nama", "-")
+        dana = dashboard.get("dana", "-")
+        fasa = dashboard.get("fasa", "-")
+        token_status = dashboard.get("ada_token", "-")
+        pelabur = dashboard.get("pelabur", "-")
+        deskripsi = dashboard.get("deskripsi", "-")
+
+        caption = (
+            f"📌 Nama Projek: {nama}\n"
+            f"💰 Dana: {dana}\n"
+            f"🚀 Fasa: \"{fasa}\"\n"
+            f"🪙 Token: ({token_status})\n"
+            f"💼 Pelabur: {pelabur}\n\n"
+            f"📖 Deskripsi:\n{deskripsi}"
+        )
+
+        success = post_text_only_to_fb(token, caption)
+
+        if success:
+            entry["fb_status"] = "Posted"
+            entry["date_posted"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            fb_posted_count += 1
+            fb_posted_list.append(nama)
+            print(f"[✅ FB POSTED] {nama}")
+        else:
+            print(f"[❌ FB FAILED] {nama}")
+
+    if fb_posted_count:
+        print("\n📢 FB POST SUMMARY:")
+        for i, name in enumerate(fb_posted_list, 1):
+            print(f"{i}. {name}")
+        print(f"\n✅ Jumlah yang berjaya dihantar ke FB: {fb_posted_count}")
+    else:
+        print("\n⚠️ Tiada yang dihantar ke FB.")
+
+
 
 
 def extract_dashboard_fields(text):
@@ -276,6 +347,9 @@ if __name__ == "__main__":
 
     final_clean_data = [t for t in result_data if t.get("text") and t["text"].strip().lower() != "null"]
     save_results(final_clean_data)
+    
+    # 🟢 Tambah baris ni untuk auto-post ke Facebook Page
+    post_results_to_facebook(final_clean_data)
 
     print("\n📦 All done.")
     print(json.dumps(final_clean_data, indent=2, ensure_ascii=False))
