@@ -200,35 +200,36 @@ def translate_with_gemini(text):
     prompt = f"""
 You are a translation assistant. Given a block of text, your job is to check if it follows this structure:
 
-name: [Project Name]  
+Name: [Project Name]  
 Raised: $[Amount] | Stage: [Stage Name] | Has token: [Yes/No]  
 Investors: [Investor list or "Not disclosed"]  
 Description: [One paragraph in English]  
 Twitter:  
-@[TwitterHandle]  
+@[TwitterHandle]
 
 ✅ If the text DOES NOT follow this format (no need to be exactly identical — as long as the structure is similar) — respond only with:
 null
 
 ✅ If the structure is valid, proceed with the following instructions:
 
-1. Keep the structure, punctuation, indentation, and line breaks exactly the same.  
-2. Only translate the **Description** (the paragraph under "Description:") into **Bahasa Melayu**.  
-3. Change **"Stage"** to **"Fasa"**, but keep the value in double quotes (e.g. "Series A").  
-4. Change **"Has token: No"** to **Ada token: (belum)**, and **"Has token: Yes"** to **Ada token: (ada)**.  
-5. Change the label **"Twitter:"** to **"Twitter (akaun rasmi):"** but keep the handle untouched.  
-6. Do NOT add any explanations, introductions, or extra commentary. Return only the translated block.
+1. Keep the overall structure, punctuation, indentation, and line breaks **exactly the same**.  
+2. Only translate the **Description** paragraph into **Bahasa Melayu**.
+3. Change **"Stage"** to **"Fasa"**, but keep the value in double quotes (e.g. "Series A").
+4. Change **"Has token: No"** to **Ada token: (belum)**, and **"Has token: Yes"** to **Ada token: (ada)**.
+5. Change **"Raised"** to **"Dana"**, and keep it in the same position in the line.
+6. Change the label **"Twitter:"** to **"Twitter (akaun rasmi):"**, but keep the Twitter handle format untouched.
+7. Do NOT add any explanations, summaries, or commentary. Return only the translated result in Bahasa Melayu.
 
-👇 Here is the  correct format of the final expected output (in Bahasa Melayu):
+👇 Below is the correct final format example (in Bahasa Melayu):
 
 Nama: OrbitGrift  
-Dana: [Amount in malay] | Fasa: "[Stage Name]" | Ada token: [Ada, Tiada]  
-Pelabur: [Investor list in malay(the word *and* become *dan*, *other* or *others* become *lain-lain*) or "Tidak Dideahkan"]  
-Deskripsi:[One paragraph description in Malay]  
+Dana: $1.2 juta | Fasa: "Series A" | Ada token: (belum)  
+Pelabur: Binance Labs dan 3 lain-lain  
+Deskripsi: OrbitGrift ialah platform modular berasaskan rantaian blok yang membolehkan pembangun melancarkan aplikasi tersuai dengan sokongan interoperabiliti merentas ekosistem.  
 Twitter (akaun rasmi):  
-@[TwitterHandle]   
+@OrbitGriftOfficial
 
-Now process this:  
+Now process this:
 {text}
 """.strip()
 
