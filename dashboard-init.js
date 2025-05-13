@@ -1,18 +1,18 @@
 jQuery(document).ready(function ($) {
   $('#dashboard').DataTable({
     ajax: {
-      url: 'https://aaqil456.github.io/CryptoProject-AutoPost/dashboard.json',
-      dataSrc: ''
+      url: 'https://aaqil456.github.io/CryptoProject-AutoPost/results.json',
+      dataSrc: 'data'
     },
     columns: [
-      { data: 'nama', defaultContent: '-' },
-      { data: 'dana', defaultContent: '-' },
-      { data: 'fasa', defaultContent: '-' },
-      { data: 'ada_token', defaultContent: '-' },
-      { data: 'pelabur', defaultContent: '-' },
-      { data: 'deskripsi', defaultContent: '-' },
+      { data: 'dashboard.nama', defaultContent: '-' },
+      { data: 'dashboard.dana', defaultContent: '-' },
+      { data: 'dashboard.fasa', defaultContent: '-' },
+      { data: 'dashboard.ada_token', defaultContent: '-' },
+      { data: 'dashboard.pelabur', defaultContent: '-' },
+      { data: 'dashboard.deskripsi', defaultContent: '-' },
       {
-        data: 'twitter',
+        data: 'dashboard.twitter',
         defaultContent: '-',
         render: function (data) {
           if (!data || data === "-" || data.trim() === "") return "-";
