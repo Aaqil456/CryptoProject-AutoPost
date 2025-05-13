@@ -4,6 +4,8 @@ import os
 import json
 import datetime
 import requests
+import time
+
 
 # === ENV ===
 RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY")
@@ -32,52 +34,60 @@ def save_results(data):
         json.dump(final_result, f, ensure_ascii=False, indent=2)
     print("✅ All tweets processed and saved to results.json")
 
-def extract_with_gemini_to_json(text, tweet_url):
+def extract_with_gemini_to_json(text, tweet_url=None, max_retries=3):
     gemini_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
     headers = {
         "Content-Type": "application/json"
     }
 
     prompt = f"""
-You are a data parser.
+    You are a data parser.
 
-Extract all available fields from the following project text and return the result in a valid JSON object using this exact structure:
+    Extract all available fields from the following project text and return the result in a valid JSON object using this exact structure:
 
-{{
-  "nama": "...",
-  "dana": "...",
-  "fasa": "...",
-  "ada_token": "...",
-  "pelabur": "...",
-  "deskripsi": "...",
-  "twitter": "...",
-  "tweet_url": "{tweet_url}"
-}}
+    {{
+      "nama": "...",
+      "dana": "...",
+      "fasa": "...",
+      "ada_token": "...",
+      "pelabur": "...",
+      "deskripsi": "...",
+      "twitter": "...",
+      "tweet_url": "{tweet_url or '-'}"
+    }}
 
-Rules:
-- If any field is not available, return "-" as the value.
-- Only use "ada" or "belum" for the "ada_token" field.
-- Do not include any explanations or extra text — just valid JSON.
-- Keep all formatting JSON-compatible, and do not return markdown.
+    Rules:
+    - If any field is not available, return "-" as the value.
+    - Only use "ada" or "belum" for the "ada_token" field.
+    - Do not include any explanations or extra text — just valid JSON.
+    - Keep all formatting JSON-compatible, and do not return markdown.
 
-Text to process:
-{text}
-""".strip()
+    Text to process:
+    {text}
+    """.strip()
 
     payload = {
         "contents": [{ "parts": [{ "text": prompt }] }]
     }
 
-    try:
-        response = requests.post(f"{gemini_url}?key={GEMINI_API_KEY}", headers=headers, json=payload)
-        if response.status_code == 200:
-            gemini_data = response.json()
-            output = gemini_data["candidates"][0]["content"]["parts"][0]["text"].strip()
-            return json.loads(output)
-        else:
-            print("❌ Gemini JSON extractor error:", response.text)
-    except Exception as e:
-        print(f"❌ Gemini JSON extraction failed: {e}")
+    for attempt in range(max_retries):
+        try:
+            response = requests.post(f"{gemini_url}?key={GEMINI_API_KEY}", headers=headers, json=payload)
+            if response.status_code == 200:
+                gemini_data = response.json()
+                output = gemini_data["candidates"][0]["content"]["parts"][0]["text"].strip()
+                return json.loads(output)
+            elif response.status_code == 429:
+                print("🔁 Hit rate limit. Retrying in 6 seconds...")
+                time.sleep(6)
+            else:
+                print("❌ Gemini JSON extractor error:", response.text)
+                return None
+        except Exception as e:
+            print(f"❌ Gemini JSON extraction failed: {e}")
+            return None
+
+    print("❌ Max retries reached for Gemini.")
     return None
 
 def translate_with_gemini(text):
