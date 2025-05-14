@@ -83,8 +83,8 @@ def post_results_to_facebook(data):
             f"💰 Dana: {dana}\n"
             f"🚀 Fasa: \"{fasa}\"\n"
             f"🪙 Token: ({token_status})\n"
-            f"💼 Pelabur: {pelabur}\n\n"
-            f"𝕏 Akaun: {twitter}\n"
+            f"💼 Pelabur: {pelabur}\n"
+            f"𝕏 Akaun: {twitter}\n\n"
             f"📖 Deskripsi:\n{deskripsi}\n\n"
             
         )
