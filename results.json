@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-05-14 15:21:33",
+  "last_updated": "2025-05-14 16:25:23",
   "data": [
     {
       "id": "1922022274908975244",
@@ -148,6 +148,20 @@
         "pelabur": "Y Combinator and 5 others",
         "deskripsi": "Platform semakan kod berkuasa AI yang mengautomasikan pengesanan isu kualiti kod dan kerentanan keselamatan, berintegrasi dengan IDE dan CI/CD, dan menyokong 30+ bahasa untuk mengurangkan masa semakan dan pepijat sebanyak 50%.",
         "twitter": "@CodeAntAI"
+      }
+    },
+    {
+      "id": "1920246613844558154",
+      "text": "```\nNama: Xweave:\nDana: $3.00M | Fasa: \"Seed\" | Ada token: (belum)\nPelabur: Jungle Ventures and 6 others\nDeskripsi: Platform fintech yang berpangkalan di Singapura untuk pembayaran rentas sempadan masa nyata yang mematuhi peraturan melalui infrastruktur bukan penjagaan yang dikuasakan oleh blok rantai yang menyepadukan rangkaian fiat dan stablecoin.\nLaman web: https://t.co/QQ1C3CHLMy\n```\nnull",
+      "images": [],
+      "tweet_url": "https://x.com/codeglitch/status/1920246613844558154",
+      "dashboard": {
+        "nama": "Xweave",
+        "dana": "$3.00M",
+        "fasa": "Seed",
+        "ada_token": "belum",
+        "pelabur": "Jungle Ventures and 6 others",
+        "deskripsi": "Platform fintech yang berpangkalan di Singapura untuk pembayaran rentas sempadan masa nyata yang mematuhi peraturan melalui infrastruktur bukan penjagaan yang dikuasakan oleh blok rantai yang menyepadukan rangkaian fiat dan stablecoin."
       }
     }
   ]
