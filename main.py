@@ -288,6 +288,10 @@ Twitter:
 ✅ If the text DOES NOT follow this format (no need to be exactly identical — as long as the structure is similar) — respond only with:
 null
 
+✅ BEFORE PROCESSING:
+- If the first line looks like a project name ending with a colon (e.g. `Deribit:`), and there is no line starting with "Name:", treat that line as the project name and prepend "Name: (first_line)" at the beginning.
+- Remove markdown code fences (e.g. triple backticks ```).
+
 ✅ If the structure is valid, proceed with the following instructions:
 
 1. Keep the overall structure, punctuation, indentation, and line breaks **exactly the same**.  
@@ -310,6 +314,7 @@ Twitter (akaun rasmi):
 Now process this:
 {text}
 """.strip()
+
 
     payload = {
         "contents": [{
