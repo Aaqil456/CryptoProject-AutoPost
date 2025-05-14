@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-05-14 19:16:10",
+  "last_updated": "2025-05-14 20:18:38",
   "data": [
     {
       "id": "1922022274908975244",
@@ -163,6 +163,118 @@
         "pelabur": "Jungle Ventures and 6 others",
         "deskripsi": "Platform fintech yang berpangkalan di Singapura untuk pembayaran rentas sempadan masa nyata yang mematuhi peraturan melalui infrastruktur bukan penjagaan yang dikuasakan oleh blok rantai yang menyepadukan rangkaian fiat dan stablecoin."
       }
+    },
+    {
+      "id": "1922745096283267315",
+      "text": "Nama: KYD Labs\nDana: $7.10M | Fasa: \"Seed\" | Ada token: (belum)\nPelabur: a16z CSX and 4 others\nDeskripsi: KYD Labs menawarkan papan pemuka tiket dan pemasaran semua-dalam-satu yang mengintegrasikan CRM dan pemerolehan pelanggan, membantu tempat mengoptimumkan jualan dan kempen dengan cerapan masa nyata dan sokongan pemasaran khusus.\nTwitter (akaun rasmi):\n@KYDLabs",
+      "images": [],
+      "tweet_url": "https://x.com/codeglitch/status/1922745096283267315",
+      "dashboard": {
+        "nama": "KYD Labs",
+        "dana": "$7.10M",
+        "fasa": "Seed",
+        "ada_token": "belum",
+        "pelabur": "a16z CSX and 4 others",
+        "deskripsi": "KYD Labs menawarkan papan pemuka tiket dan pemasaran semua-dalam-satu yang mengintegrasikan CRM dan pemerolehan pelanggan, membantu tempat mengoptimumkan jualan dan kempen dengan cerapan masa nyata dan sokongan pemasaran khusus.",
+        "twitter": "@KYDLabs"
+      }
+    },
+    {
+      "id": "1922744488478286201",
+      "text": "Nama: Squads\nDana: N/A | Fasa: \"Strategic\" | Ada token: (belum)\nPelabur: Haun Ventures\nDeskripsi: Squads menyediakan pasukan web3 dengan alat atas rantaian untuk menguruskan perbendaharaan dan peningkatan program dalam antara muka yang disatukan, membolehkan protokol yang cekap dan operasi perniagaan.\nTwitter (akaun rasmi):\n@squadsprotocol",
+      "images": [],
+      "tweet_url": "https://x.com/codeglitch/status/1922744488478286201",
+      "dashboard": {
+        "nama": "Squads",
+        "dana": "N/A",
+        "fasa": "Strategic",
+        "ada_token": "belum",
+        "pelabur": "Haun Ventures",
+        "deskripsi": "Squads menyediakan pasukan web3 dengan alat atas rantaian untuk menguruskan perbendaharaan dan peningkatan program dalam antara muka yang disatukan, membolehkan protokol yang cekap dan operasi perniagaan.",
+        "twitter": "@squadsprotocol"
+      }
+    },
+    {
+      "id": "1922744368030416902",
+      "text": "Name: Gnosis HQ (Prev. Headquarters)\nDana: $14.95M | Fasa: \"M&amp;A\" | Ada token: (belum)\nPelabur: Gnosis\nDeskripsi: Gnosis HQ menawarkan papan pemuka kewangan untuk pasukan Web3, mengautomasikan tugas dan pelaporan kewangan untuk meningkatkan akauntabiliti.\nTwitter (akaun rasmi):\n@HQ_xyz",
+      "images": [],
+      "tweet_url": "https://x.com/codeglitch/status/1922744368030416902",
+      "dashboard": {
+        "nama": "Name: Gnosis HQ (Prev. Headquarters)",
+        "dana": "$14.95M",
+        "fasa": "M&amp;A",
+        "ada_token": "belum",
+        "pelabur": "Gnosis",
+        "deskripsi": "Gnosis HQ menawarkan papan pemuka kewangan untuk pasukan Web3, mengautomasikan tugas dan pelaporan kewangan untuk meningkatkan akauntabiliti.",
+        "twitter": "@HQ_xyz"
+      }
+    },
+    {
+      "id": "1922744242285445305",
+      "text": "Nama: Proof of Play\nDana: N/A | Fasa: \"Undisclosed\" | Ada token: (belum)\nPelabur: Arbitrum Gaming Ventures\nDeskripsi: Proof of Play ialah studio permainan onchain yang membangunkan permainan dan infrastruktur terdesentralisasi, yang bertujuan untuk menjadikan penciptaan permainan onchain lebih mudah dan lebih mudah diakses.\nTwitter (akaun rasmi):\n@ProofOfPlay",
+      "images": [],
+      "tweet_url": "https://x.com/codeglitch/status/1922744242285445305",
+      "dashboard": {
+        "nama": "Proof of Play",
+        "dana": "N/A",
+        "fasa": "Undisclosed",
+        "ada_token": "belum",
+        "pelabur": "Arbitrum Gaming Ventures",
+        "deskripsi": "Proof of Play ialah studio permainan onchain yang membangunkan permainan dan infrastruktur terdesentralisasi, yang bertujuan untuk menjadikan penciptaan permainan onchain lebih mudah dan lebih mudah diakses.",
+        "twitter": "@ProofOfPlay"
+      }
+    },
+    {
+      "id": "1922744068255232156",
+      "text": "Nama: Mountain Protocol USD (USDM)\nDana: N/A | Fasa: \"M&A\" | Ada token: (ada)\nPelabur: Anchorage Digital\nDeskripsi: Mountain Protocol menawarkan platform di mana dana pengguna ditukar secara automatik kepada USDM selepas penyelesaian, membolehkan jagaan yang menjana ganjaran dan pengeluaran fleksibel dalam USDM, USDC atau USD.\nTwitter (akaun rasmi):\n@MountainUSDM",
+      "images": [],
+      "tweet_url": "https://x.com/codeglitch/status/1922744068255232156",
+      "dashboard": {
+        "nama": "Mountain Protocol USD (USDM)",
+        "dana": "N/A",
+        "fasa": "M&A",
+        "ada_token": "ada",
+        "pelabur": "Anchorage Digital",
+        "deskripsi": "Mountain Protocol menawarkan platform di mana dana pengguna ditukar secara automatik kepada USDM selepas penyelesaian, membolehkan jagaan yang menjana ganjaran dan pengeluaran fleksibel dalam USDM, USDC atau USD.",
+        "twitter": "@MountainUSDM"
+      }
+    },
+    {
+      "id": "1922743972646064380",
+      "text": "Nama: DoubleUp\nDana: $4.00M | Fasa: \"Seed\" | Ada token: (belum)\nPelabur: Karatage and 10 others\nDeskripsi: DoubleUp ialah platform GameFi di rantaian blok Sui, yang menawarkan permainan telus dan kalis gangguan yang dikuasakan oleh kontrak pintar untuk membina kepercayaan pemain.\nTwitter (akaun rasmi):\n@doubleup_app",
+      "images": [],
+      "tweet_url": "https://x.com/codeglitch/status/1922743972646064380",
+      "dashboard": {
+        "nama": "DoubleUp",
+        "dana": "$4.00M",
+        "fasa": "Seed",
+        "ada_token": "belum",
+        "pelabur": "Karatage and 10 others",
+        "deskripsi": "DoubleUp ialah platform GameFi di rantaian blok Sui, yang menawarkan permainan telus dan kalis gangguan yang dikuasakan oleh kontrak pintar untuk membina kepercayaan pemain.",
+        "twitter": "@doubleup_app"
+      }
+    },
+    {
+      "id": "1922743800025227535",
+      "text": "Nama: Nirvana Labs\nDana: $6.00M | Fasa: \"Extended Seed\" | Ada token: (belum)\nPelabur: Jump Crypto and 4 others\nDeskripsi: Nirvana Labs menyediakan teknologi virtualisasi untuk menyokong nod blok rantai, analisis data, platform permainan dan aplikasi terdesentralisasi.\nTwitter (akaun rasmi):\n@nirvanalabsai",
+      "images": [],
+      "tweet_url": "https://x.com/codeglitch/status/1922743800025227535",
+      "dashboard": {
+        "nama": "Nirvana Labs",
+        "dana": "$6.00M",
+        "fasa": "Extended Seed",
+        "ada_token": "belum",
+        "pelabur": "Jump Crypto and 4 others",
+        "deskripsi": "Nirvana Labs menyediakan teknologi virtualisasi untuk menyokong nod blok rantai, analisis data, platform permainan dan aplikasi terdesentralisasi.",
+        "twitter": "@nirvanalabsai"
+      }
+    },
+    {
+      "id": "1922743652788355357",
+      "text": "```\nName: SpaceComputer\nDana: N/A | Fasa: \"Pre-Seed\" | Ada token: (belum)\nPelabur: Primitive Ventures and 7 others\nDeskripsi: SpaceComputer sedang membangunkan infrastruktur pengkomputeran autonomi terdesentralisasi di angkasa lepas, menggabungkan teknologi kriptografi dan perkakasan angkasa untuk membolehkan pengkomputeran luar Bumi yang tahan penapisan.\nTwitter (akaun rasmi):\n@SpaceComputerIO\n```",
+      "images": [],
+      "tweet_url": "https://x.com/codeglitch/status/1922743652788355357",
+      "dashboard": null
     }
   ]
 }
