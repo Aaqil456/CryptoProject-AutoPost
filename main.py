@@ -84,7 +84,7 @@ def post_results_to_facebook(data):
             f"🚀 Fasa: \"{fasa}\"\n"
             f"🪙 Token: ({token_status})\n"
             f"💼 Pelabur: {pelabur}\n\n"
-            f"𝕏 Akaun: {twitter}"
+            f"𝕏 Akaun: {twitter}\n"
             f"📖 Deskripsi:\n{deskripsi}\n\n"
             
         )
