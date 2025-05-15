@@ -67,9 +67,13 @@ def post_results_to_facebook(data):
 
     for entry in data:
         if entry.get("fb_status") == "Posted":
-            continue  # Skip yang dah post
+            continue
 
-        dashboard = entry.get("dashboard", {})
+        dashboard = entry.get("dashboard")
+        if not isinstance(dashboard, dict):  # Skip if dashboard is missing
+            print(f"[⚠️ SKIPPED] No dashboard data for {entry.get('id')}")
+            continue
+
         nama = dashboard.get("nama", "-")
         dana = dashboard.get("dana", "-")
         fasa = dashboard.get("fasa", "-")
@@ -85,12 +89,10 @@ def post_results_to_facebook(data):
             f"🪙 Token: ({token_status})\n"
             f"💼 Pelabur: {pelabur}\n"
             f"𝕏 Akaun: {twitter}\n\n"
-            f"📖 Deskripsi:\n{deskripsi}\n\n"
-            
+            f"📖 Deskripsi:\n{deskripsi}\n"
         )
 
         success = post_text_only_to_fb(token, caption)
-
         if success:
             entry["fb_status"] = "Posted"
             entry["date_posted"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -107,6 +109,7 @@ def post_results_to_facebook(data):
         print(f"\n✅ Jumlah yang berjaya dihantar ke FB: {fb_posted_count}")
     else:
         print("\n⚠️ Tiada yang dihantar ke FB.")
+
 
 
 
@@ -357,10 +360,11 @@ if __name__ == "__main__":
             print(f"✅ Collected: {tweet['tweet_url']}")
 
     final_clean_data = [t for t in result_data if t.get("text") and t["text"].strip().lower() != "null"]
-    save_results(final_clean_data)
-    
     # 🟢 Tambah baris ni untuk auto-post ke Facebook Page
     post_results_to_facebook(final_clean_data)
+    save_results(final_clean_data)
+    
+
 
     print("\n📦 All done.")
     print(json.dumps(final_clean_data, indent=2, ensure_ascii=False))
