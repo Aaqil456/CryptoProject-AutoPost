@@ -4,6 +4,7 @@ import datetime
 import requests
 import base64
 import re
+import time
 
 # === ENV ===
 RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY")
@@ -31,6 +32,7 @@ def get_fb_token():
     except Exception as e:
         print("[FB Token Error]", e)
         return None
+
 
 def post_text_only_to_fb(token, caption):
     try:
@@ -70,7 +72,7 @@ def post_results_to_facebook(data):
             continue
 
         dashboard = entry.get("dashboard")
-        if not isinstance(dashboard, dict):  # Skip if dashboard is missing
+        if not isinstance(dashboard, dict):
             print(f"[⚠️ SKIPPED] No dashboard data for {entry.get('id')}")
             continue
 
@@ -109,6 +111,7 @@ def post_results_to_facebook(data):
         print(f"\n✅ Jumlah yang berjaya dihantar ke FB: {fb_posted_count}")
     else:
         print("\n⚠️ Tiada yang dihantar ke FB.")
+
 
 
 
@@ -273,7 +276,8 @@ def fetch_tweets_rapidapi(username, max_tweets=30):
         return []
 
 
-def translate_with_gemini(text):
+
+def translate_with_gemini(text, max_retries=5):
     gemini_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
     headers = {
         "Content-Type": "application/json"
@@ -318,25 +322,35 @@ Now process this:
 {text}
 """.strip()
 
-
     payload = {
-        "contents": [{
-            "parts": [{"text": prompt}]
-        }]
+        "contents": [ { "parts": [ { "text": prompt } ] } ]
     }
 
-    try:
-        response = requests.post(f"{gemini_url}?key={GEMINI_API_KEY}", headers=headers, json=payload)
-        if response.status_code == 200:
-            gemini_data = response.json()
-            return gemini_data["candidates"][0]["content"]["parts"][0]["text"].strip()
-        else:
-            print("❌ Gemini API Error:", response.text)
-    except Exception as e:
-        print(f"❌ Gemini translation failed: {e}")
+    for attempt in range(1, max_retries + 1):
+        try:
+            res = requests.post(f"{gemini_url}?key={GEMINI_API_KEY}", headers=headers, json=payload)
+            if res.status_code == 200:
+                return res.json()["candidates"][0]["content"]["parts"][0]["text"].strip()
+            elif res.status_code == 429:
+                print(f"⚠️ Gemini 429 Quota hit. Retry attempt {attempt}")
+                try:
+                    retry_delay = json.loads(res.text)["error"]["details"][2]["retryDelay"]
+                    seconds = int(retry_delay.replace("s", "").replace("\"", "").replace(":", "").replace(" ", ""))
+                    time.sleep(seconds + 1)
+                except:
+                    time.sleep(30)  # fallback
+            else:
+                print("❌ Gemini API Error:", res.text)
+                return None
+        except Exception as e:
+            print(f"❌ Gemini translation failed: {e}")
+            time.sleep(5)
+    print("❌ Max retries exceeded for Gemini.")
     return None
 
 
+
+# Make sure to call post_results_to_facebook() after save_results()
 if __name__ == "__main__":
     usernames = ["codeglitch"]
     existing = load_existing_results()
@@ -360,11 +374,8 @@ if __name__ == "__main__":
             print(f"✅ Collected: {tweet['tweet_url']}")
 
     final_clean_data = [t for t in result_data if t.get("text") and t["text"].strip().lower() != "null"]
-    # 🟢 Tambah baris ni untuk auto-post ke Facebook Page
     post_results_to_facebook(final_clean_data)
     save_results(final_clean_data)
-    
-
 
     print("\n📦 All done.")
     print(json.dumps(final_clean_data, indent=2, ensure_ascii=False))
