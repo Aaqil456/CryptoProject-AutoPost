@@ -2,8 +2,8 @@ name: Crypto Project Scraper, Translate & Post
 
 on:
   workflow_dispatch:
-  schedule:
-     - cron: '0 * * * *'  # Uncomment if needed later
+  #schedule:
+    # - cron: '0 * * * *'  # Uncomment if needed later
 
 permissions:
   contents: write
