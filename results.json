@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-05-15 01:37:29",
+  "last_updated": "2025-05-15 06:01:45",
   "data": [
     {
       "id": "1922022274908975244",
@@ -14,7 +14,9 @@
         "pelabur": "Arbitrum Gaming Ventures",
         "deskripsi": "MOBA hibrid, RTS dan permainan kad di mana pemain bertempur menggunakan dek di hadapan penonton interaktif secara langsung, menggabungkan permainan strategik dengan penglibatan penonton.",
         "twitter": "@PlayWildcard"
-      }
+      },
+      "fb_status": "Posted",
+      "date_posted": "2025-05-15 06:01:04"
     },
     {
       "id": "1922022138929623242",
@@ -29,7 +31,9 @@
         "pelabur": "Arbitrum Gaming Ventures",
         "deskripsi": "Ekosistem permainan yang memfokuskan pada keseronokan pemain dan kebebasan kreatif untuk pembangun, membolehkan inovasi tanpa batasan.",
         "twitter": "@Hyve_Labs"
-      }
+      },
+      "fb_status": "Posted",
+      "date_posted": "2025-05-15 06:01:06"
     },
     {
       "id": "1922021806032224615",
@@ -44,7 +48,9 @@
         "pelabur": "Castrum Capital",
         "deskripsi": "Membina datasfera hiburan yang menggabungkan blok rantai dan AI untuk membolehkan pengguna bermain, berdagang dan menonton kandungan sambil memperoleh ganjaran, dengan Token RDAC membolehkan pengalaman dipacu data dan integrasi Web3.",
         "twitter": "@redactedcoin"
-      }
+      },
+      "fb_status": "Posted",
+      "date_posted": "2025-05-15 06:01:09"
     },
     {
       "id": "1922021558601601192",
@@ -59,7 +65,9 @@
         "pelabur": "THEIA and 19 others",
         "deskripsi": "Protokol yang memberi ganjaran kepada LP untuk aktiviti on-chain merentas protokol rakan kongsi dengan mengedarkan token daripada perbendaharaan yang diuruskan DAO, tanpa mengambil hak penjagaan dana pengguna.",
         "twitter": "@turtleclubhouse"
-      }
+      },
+      "fb_status": "Posted",
+      "date_posted": "2025-05-15 06:01:12"
     },
     {
       "id": "1920607470159831538",
@@ -74,7 +82,9 @@
         "pelabur": "Coinbase Ventures",
         "deskripsi": "Pertukaran derivatif kripto terkemuka yang menawarkan opsyen dan niaga hadapan BTC dan ETH, terkenal dengan pelaksanaan kependaman rendah dan kecairan institusi yang mendalam.",
         "twitter": "@DeribitOfficial"
-      }
+      },
+      "fb_status": "Posted",
+      "date_posted": "2025-05-15 06:01:14"
     },
     {
       "id": "1920606958643523853",
@@ -89,7 +99,9 @@
         "pelabur": "Xenoverge Angel Fund",
         "deskripsi": "Protokol pinjaman DeFi pada XRPL yang membolehkan pinjaman berlebihan cagaran menggunakan XRP, dengan transaksi yang pantas, kos rendah dan selamat.",
         "twitter": "@xpfinancexrp"
-      }
+      },
+      "fb_status": "Posted",
+      "date_posted": "2025-05-15 06:01:16"
     },
     {
       "id": "1920606774949802385",
@@ -103,7 +115,9 @@
         "ada_token": "belum",
         "pelabur": "GSR and 6 others",
         "deskripsi": "Platform infrastruktur dagangan untuk institusi, menawarkan pelaksanaan latensi rendah, data pasaran yang bersih, dan portfolio masa nyata serta alat risiko."
-      }
+      },
+      "fb_status": "Posted",
+      "date_posted": "2025-05-15 06:01:18"
     },
     {
       "id": "1920246416259088465",
@@ -118,7 +132,9 @@
         "pelabur": "Arcanum Ventures",
         "deskripsi": "Platform blok rantai modular yang menampilkan Kit Pembangunan Blok Rantai, rangkaian serasi EVM dan saling kendali rantaian silang untuk membina dan menghubungkan rantaian khusus aplikasi.",
         "twitter": "@AppLayerLabs"
-      }
+      },
+      "fb_status": "Posted",
+      "date_posted": "2025-05-15 06:01:21"
     },
     {
       "id": "1920245963266068977",
@@ -133,7 +149,9 @@
         "pelabur": "Visa",
         "deskripsi": "Platform perbankan dan pembayaran untuk perniagaan asli kripto, membolehkan pembayaran fiat dan kripto, pemegangan aset berbilang mata wang dan pemindahan global melalui API mesra pembangun.",
         "twitter": "@BVNKFinance"
-      }
+      },
+      "fb_status": "Posted",
+      "date_posted": "2025-05-15 06:01:23"
     },
     {
       "id": "1920245822534324599",
@@ -148,7 +166,9 @@
         "pelabur": "Y Combinator and 5 others",
         "deskripsi": "Platform semakan kod berkuasa AI yang mengautomasikan pengesanan isu kualiti kod dan kerentanan keselamatan, berintegrasi dengan IDE dan CI/CD, dan menyokong 30+ bahasa untuk mengurangkan masa semakan dan pepijat sebanyak 50%.",
         "twitter": "@CodeAntAI"
-      }
+      },
+      "fb_status": "Posted",
+      "date_posted": "2025-05-15 06:01:25"
     },
     {
       "id": "1920246613844558154",
@@ -162,7 +182,9 @@
         "ada_token": "belum",
         "pelabur": "Jungle Ventures and 6 others",
         "deskripsi": "Platform fintech yang berpangkalan di Singapura untuk pembayaran rentas sempadan masa nyata yang mematuhi peraturan melalui infrastruktur bukan penjagaan yang dikuasakan oleh blok rantai yang menyepadukan rangkaian fiat dan stablecoin."
-      }
+      },
+      "fb_status": "Posted",
+      "date_posted": "2025-05-15 06:01:27"
     },
     {
       "id": "1922745096283267315",
@@ -177,7 +199,9 @@
         "pelabur": "a16z CSX and 4 others",
         "deskripsi": "KYD Labs menawarkan papan pemuka tiket dan pemasaran semua-dalam-satu yang mengintegrasikan CRM dan pemerolehan pelanggan, membantu tempat mengoptimumkan jualan dan kempen dengan cerapan masa nyata dan sokongan pemasaran khusus.",
         "twitter": "@KYDLabs"
-      }
+      },
+      "fb_status": "Posted",
+      "date_posted": "2025-05-15 06:01:28"
     },
     {
       "id": "1922744488478286201",
@@ -192,7 +216,9 @@
         "pelabur": "Haun Ventures",
         "deskripsi": "Squads menyediakan pasukan web3 dengan alat atas rantaian untuk menguruskan perbendaharaan dan peningkatan program dalam antara muka yang disatukan, membolehkan protokol yang cekap dan operasi perniagaan.",
         "twitter": "@squadsprotocol"
-      }
+      },
+      "fb_status": "Posted",
+      "date_posted": "2025-05-15 06:01:32"
     },
     {
       "id": "1922744368030416902",
@@ -207,7 +233,9 @@
         "pelabur": "Gnosis",
         "deskripsi": "Gnosis HQ menawarkan papan pemuka kewangan untuk pasukan Web3, mengautomasikan tugas dan pelaporan kewangan untuk meningkatkan akauntabiliti.",
         "twitter": "@HQ_xyz"
-      }
+      },
+      "fb_status": "Posted",
+      "date_posted": "2025-05-15 06:01:34"
     },
     {
       "id": "1922744242285445305",
@@ -222,7 +250,9 @@
         "pelabur": "Arbitrum Gaming Ventures",
         "deskripsi": "Proof of Play ialah studio permainan onchain yang membangunkan permainan dan infrastruktur terdesentralisasi, yang bertujuan untuk menjadikan penciptaan permainan onchain lebih mudah dan lebih mudah diakses.",
         "twitter": "@ProofOfPlay"
-      }
+      },
+      "fb_status": "Posted",
+      "date_posted": "2025-05-15 06:01:37"
     },
     {
       "id": "1922744068255232156",
@@ -237,7 +267,9 @@
         "pelabur": "Anchorage Digital",
         "deskripsi": "Mountain Protocol menawarkan platform di mana dana pengguna ditukar secara automatik kepada USDM selepas penyelesaian, membolehkan jagaan yang menjana ganjaran dan pengeluaran fleksibel dalam USDM, USDC atau USD.",
         "twitter": "@MountainUSDM"
-      }
+      },
+      "fb_status": "Posted",
+      "date_posted": "2025-05-15 06:01:41"
     },
     {
       "id": "1922743972646064380",
@@ -252,7 +284,9 @@
         "pelabur": "Karatage and 10 others",
         "deskripsi": "DoubleUp ialah platform GameFi di rantaian blok Sui, yang menawarkan permainan telus dan kalis gangguan yang dikuasakan oleh kontrak pintar untuk membina kepercayaan pemain.",
         "twitter": "@doubleup_app"
-      }
+      },
+      "fb_status": "Posted",
+      "date_posted": "2025-05-15 06:01:42"
     },
     {
       "id": "1922743800025227535",
@@ -267,7 +301,9 @@
         "pelabur": "Jump Crypto and 4 others",
         "deskripsi": "Nirvana Labs menyediakan teknologi virtualisasi untuk menyokong nod blok rantai, analisis data, platform permainan dan aplikasi terdesentralisasi.",
         "twitter": "@nirvanalabsai"
-      }
+      },
+      "fb_status": "Posted",
+      "date_posted": "2025-05-15 06:01:45"
     },
     {
       "id": "1922743652788355357",
