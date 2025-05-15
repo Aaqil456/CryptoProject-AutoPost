@@ -296,7 +296,7 @@ Twitter:
 null
 
 ✅ BEFORE PROCESSING:
-- If the first line looks like a project name ending with a colon (e.g. `Deribit:`), and there is no line starting with "Name:", treat that line as the project name and prepend "Name: (first_line)" at the beginning.
+- If the first line looks like a project name ending with a colon (e.g. `Deribit:`), and there is no line starting with "Name:", treat that line as the project name and prepend "Nama: (first_line)" at the beginning.
 - Remove markdown code fences (e.g. triple backticks ```).
 
 ✅ If the structure is valid, proceed with the following instructions:
@@ -306,8 +306,9 @@ null
 3. Change **"Stage"** to **"Fasa"**, but keep the value in double quotes (e.g. "Series A").
 4. Change **"Has token: No"** to **Ada token: (belum)**, and **"Has token: Yes"** to **Ada token: (ada)**.
 5. Change **"Raised"** to **"Dana"**, and keep it in the same position in the line.
-6. Change the label **"Twitter:"** to **"Twitter (akaun rasmi):"**, but keep the Twitter handle format untouched.
-7. Do NOT add any explanations, summaries, or commentary. Return only the translated result in Bahasa Melayu.
+6. Change **"Twitter:"** to **"Twitter (akaun rasmi):"**, but keep the Twitter handle format untouched.
+7. Change **"Name:"** to **"Nama:"**.
+8. Do NOT add any explanations, summaries, or commentary. Return only the translated result in Bahasa Melayu.
 
 👇 Below is the correct final format example (in Bahasa Melayu):
 
