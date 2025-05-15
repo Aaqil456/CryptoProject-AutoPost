@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-05-15 06:01:45",
+  "last_updated": "2025-05-15 06:14:07",
   "data": [
     {
       "id": "1922022274908975244",
@@ -304,6 +304,40 @@
       },
       "fb_status": "Posted",
       "date_posted": "2025-05-15 06:01:45"
+    },
+    {
+      "id": "1922743652788355357",
+      "text": "Nama: SpaceComputer\nDana: N/A | Fasa: \"Pre-Seed\" | Ada token: (belum)\nPelabur: Primitive Ventures and 7 others\nDeskripsi: SpaceComputer sedang membangunkan infrastruktur pengkomputeran autonomi terdesentralisasi di angkasa lepas, menggabungkan teknologi kriptografi dan perkakasan angkasa untuk membolehkan pengkomputeran luar bumi yang tahan penapisan.\nTwitter (akaun rasmi):\n@SpaceComputerIO",
+      "images": [],
+      "tweet_url": "https://x.com/codeglitch/status/1922743652788355357",
+      "dashboard": {
+        "nama": "SpaceComputer",
+        "dana": "N/A",
+        "fasa": "Pre-Seed",
+        "ada_token": "belum",
+        "pelabur": "Primitive Ventures and 7 others",
+        "deskripsi": "SpaceComputer sedang membangunkan infrastruktur pengkomputeran autonomi terdesentralisasi di angkasa lepas, menggabungkan teknologi kriptografi dan perkakasan angkasa untuk membolehkan pengkomputeran luar bumi yang tahan penapisan.",
+        "twitter": "@SpaceComputerIO"
+      },
+      "fb_status": "Posted",
+      "date_posted": "2025-05-15 06:14:04"
+    },
+    {
+      "id": "1922743507057299660",
+      "text": "Nama: Perpl\nDana: $9.25M | Fasa: \"Undisclosed\" | Ada token: (belum)\nPelabur: DragonFly Capital and 7 others\nDeskripsi: Perpl ialah bursa terdesentralisasi untuk niaga hadapan kekal menggunakan model CLOB on-chain, membolehkan perdagangan yang telus dan cekap tanpa infrastruktur terpusat.\nTwitter (akaun rasmi):\n@perpltrade",
+      "images": [],
+      "tweet_url": "https://x.com/codeglitch/status/1922743507057299660",
+      "dashboard": {
+        "nama": "Perpl",
+        "dana": "$9.25M",
+        "fasa": "Undisclosed",
+        "ada_token": "belum",
+        "pelabur": "DragonFly Capital and 7 others",
+        "deskripsi": "Perpl ialah bursa terdesentralisasi untuk niaga hadapan kekal menggunakan model CLOB on-chain, membolehkan perdagangan yang telus dan cekap tanpa infrastruktur terpusat.",
+        "twitter": "@perpltrade"
+      },
+      "fb_status": "Posted",
+      "date_posted": "2025-05-15 06:14:07"
     }
   ]
 }
